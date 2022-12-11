@@ -1,5 +1,5 @@
 package models
 
-type NotionEquation struct {
+type Equation struct {
 	Expression string `json:"expression"`
 }

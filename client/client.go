@@ -6,23 +6,44 @@ import (
 	"github.com/leeliwei930/notion_sdk/models"
 )
 
-func newNotionClient(cfg *config.NotionConfig) *resty.Client {
+func setupRequest() *resty.Request {
 	notionError := &models.NotionError{}
 	client := resty.
 		New().
 		SetBaseURL("https://api.notion.com/v1/").
-		SetAuthToken(cfg.AccessToken).
-		SetHeader("Notion-Version", "2021-08-16").
 		SetHeader("Content-Type", "application/json").
 		SetError(notionError)
 
-	return client
+	return client.R()
 
 }
 
-func Notion() *resty.Request {
-	return newNotionClient(
-		&config.NotionConfig{
-			AccessToken: "secret_j8c5tvxQM854jS32JLGTXNi2TKUFu5QeDKzI7PodtnC",
-		}).R()
+type NotionClient struct {
+	config  *config.NotionConfig
+	request *resty.Request
+}
+
+func (client *NotionClient) SetAccessToken(accessToken string) *NotionClient {
+
+	client.request.SetAuthToken(accessToken)
+	return client
+}
+
+func (client *NotionClient) InitializeConfig(config *config.NotionConfig) *NotionClient {
+
+	client.config = config
+	client.request.SetHeader("Notion-Version", client.config.NotionVersion)
+
+	return client
+}
+
+func (client *NotionClient) Request() *resty.Request {
+	return client.request
+}
+func Notion() *NotionClient {
+	req := setupRequest()
+	client := &NotionClient{
+		request: req,
+	}
+	return client
 }

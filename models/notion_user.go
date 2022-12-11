@@ -1,26 +1,29 @@
 package models
 
-import "github.com/google/uuid"
+import (
+	"github.com/google/uuid"
+	"github.com/leeliwei930/notion_sdk/enums"
+)
 
-type NotionUser struct {
+type User struct {
 	Object    string          `json:"object"`
 	ID        uuid.UUID       `json:"id"`
-	Type      *NotionUserType `json:"type,omitempty"`
+	Type      *enums.UserType `json:"type,omitempty"`
 	AvatarUrl *string         `json:"avatar_url,omitempty"`
-	Person    *NotionPerson   `json:"person,omitempty"`
-	Bot       *NotionBot      `json:"bot,omitempty"`
+	Person    *Person         `json:"person,omitempty"`
+	Bot       *Bot            `json:"bot,omitempty"`
 }
 
-type NotionPerson struct {
+type Person struct {
 	Email string `json:"email"`
 }
 
-type NotionBot struct {
-	Owner *NotionBotOwner `json:"owner"`
+type Bot struct {
+	Owner *BotOwner `json:"owner"`
 }
 
-type NotionBotOwner struct {
-	Type      NotionBotOwnerType `json:"type"`
+type BotOwner struct {
+	Type      enums.BotOwnerType `json:"type"`
 	Workspace bool               `json:"workspace"`
-	User      NotionUser         `json:"user"`
+	User      User               `json:"user"`
 }

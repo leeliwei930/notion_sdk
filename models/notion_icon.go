@@ -1,8 +1,8 @@
 package models
 
-type NotionIcon struct {
-	Type     string              `json:"type,omitempty"`
-	External *NotionExternalFile `json:"external,omitempty"`
-	File     *NotionUploadedFile `json:"file,omitempty"`
-	Emoji    string              `json:"emoji,omitempty"`
+type Icon struct {
+	Type     string        `json:"type,omitempty"`
+	External *ExternalFile `json:"external,omitempty"`
+	File     *UploadedFile `json:"file,omitempty"`
+	Emoji    string        `json:"emoji,omitempty"`
 }

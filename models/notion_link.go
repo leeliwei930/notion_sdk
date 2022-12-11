@@ -1,10 +1,12 @@
 package models
 
-type NotionLink struct {
+import "github.com/leeliwei930/notion_sdk/enums"
+
+type Link struct {
 	Url string `json:"url"`
 }
 
-type NotionMention struct {
-	Type NotionMentionType `json:"type"`
-	User *NotionUser       `json:"user,omitempty"`
+type Mention struct {
+	Type enums.MentionType `json:"type"`
+	User *User             `json:"user,omitempty"`
 }

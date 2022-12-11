@@ -1,0 +1,35 @@
+package enums
+
+type BlockType string
+
+const (
+	ParagraphBlockType        BlockType = "paragraph"
+	H1BlockType               BlockType = "heading_1"
+	H2BlockType               BlockType = "heading_2"
+	H3BlockType               BlockType = "heading_3"
+	BulletListItemBlockType   BlockType = "bulleted_list_item"
+	NumberedListItemBlockType BlockType = "numbered_list_item"
+	ToDoBlockType             BlockType = "to_do"
+	ToggleBlockType           BlockType = "toggle"
+	ChildPageBlockType        BlockType = "child_page"
+	ChildDatabaseBlockType    BlockType = "child_database"
+	EmbedBlockType            BlockType = "embed"
+	ImageBlockType            BlockType = "image"
+	VideoBlockType            BlockType = "video"
+	FileBlockType             BlockType = "file"
+	PdfBlockType              BlockType = "pdf"
+	BookmarkBlockType         BlockType = "bookmark"
+	CalloutBlockType          BlockType = "callout"
+	CodeBlockType             BlockType = "code"
+	QuoteBlockType            BlockType = "quote"
+	EquationBlockType         BlockType = "equation"
+	DividerBlockType          BlockType = "divider"
+	TableOfContentsBlockType  BlockType = "table_of_contents"
+	ColumnBlockType           BlockType = "column"
+	ColumnListBlockType       BlockType = "column_list"
+	LinkPreviewBlockType      BlockType = "link_preview"
+	SyncedBlockBlockType      BlockType = "synced_block"
+	TemplateBlockType         BlockType = "template"
+	LinkToPageBlockType       BlockType = "link_to_page"
+	UnsupportedBlockType      BlockType = "unsupported"
+)

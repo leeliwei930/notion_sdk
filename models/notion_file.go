@@ -2,16 +2,16 @@ package models
 
 import "time"
 
-type NotionFile struct {
-	External *NotionExternalFile `json:"external,omitempty"`
-	File     *NotionUploadedFile `json:"file,omitempty"`
+type File struct {
+	External *ExternalFile `json:"external,omitempty"`
+	File     *UploadedFile `json:"file,omitempty"`
 }
 
-type NotionUploadedFile struct {
+type UploadedFile struct {
 	Url        string     `json:"url"`
 	ExpiryTime *time.Time `json:"expiry_time"`
 }
 
-type NotionExternalFile struct {
+type ExternalFile struct {
 	Url string `json:"url"`
 }
