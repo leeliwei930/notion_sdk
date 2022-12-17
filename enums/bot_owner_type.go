@@ -1,8 +1,13 @@
 package enums
 
-type BotOwnerType string
+type BotOwnerType int
 
 const (
-	UserOwner      BotOwnerType = "user"
-	WorkspaceOwner BotOwnerType = "workspace"
+	UserOwner BotOwnerType = iota
+	WorkspaceOwner
 )
+
+var BotOwnerTypeMap = map[BotOwnerType]string{
+	UserOwner:      "user",
+	WorkspaceOwner: "workspace",
+}

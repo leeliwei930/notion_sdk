@@ -1,9 +1,15 @@
 package enums
 
-type RichTextType string
+type RichTextType int
 
 const (
-	Text     RichTextType = "text"
-	Mention  RichTextType = "mention"
-	Equation RichTextType = "equation"
+	Text RichTextType = iota
+	Mention
+	Equation
 )
+
+var RichTextTypeMap = map[RichTextType]string{
+	Text:     "text",
+	Mention:  "mention",
+	Equation: "equation",
+}

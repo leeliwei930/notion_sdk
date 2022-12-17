@@ -1,8 +1,13 @@
 package enums
 
-type UserType string
+type UserType int
 
 const (
-	Person UserType = "person"
-	Bot    UserType = "bot"
+	Person UserType = iota
+	Bot
 )
+
+var UserTypeMap = map[UserType]string{
+	Person: "person",
+	Bot:    "bot",
+}

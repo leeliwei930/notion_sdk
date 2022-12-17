@@ -1,9 +1,15 @@
 package enums
 
-type PageParentType string
+type PageParentType int
 
 const (
-	PageParentDatabase  PageParentType = "database_id"
-	PageParentPage      PageParentType = "page_id"
-	PageParentWorkspace PageParentType = "workspace"
+	PageParentDatabase PageParentType = iota
+	PageParentPage
+	PageParentWorkspace
 )
+
+var PageParentTypeMap = map[PageParentType]string{
+	PageParentDatabase:  "database_id",
+	PageParentPage:      "page_id",
+	PageParentWorkspace: "workspace",
+}

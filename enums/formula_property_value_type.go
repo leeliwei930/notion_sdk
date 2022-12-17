@@ -1,10 +1,17 @@
 package enums
 
-type FormulaPropertyValueType string
+type FormulaPropertyValueType int
 
 const (
-	FormulaPropertyStringValue  FormulaPropertyValueType = "string"
-	FormulaPropertyNumberValue  FormulaPropertyValueType = "number"
-	FormulaPropertyBooleanValue FormulaPropertyValueType = "boolean"
-	FormulaPropertyDateValue    FormulaPropertyValueType = "date"
+	FormulaPropertyStringValue FormulaPropertyValueType = iota
+	FormulaPropertyNumberValue
+	FormulaPropertyBooleanValue
+	FormulaPropertyDateValue
 )
+
+var FormulaPropertyValueTypeMap = map[FormulaPropertyValueType]string{
+	FormulaPropertyStringValue:  "string",
+	FormulaPropertyNumberValue:  "number",
+	FormulaPropertyBooleanValue: "boolean",
+	FormulaPropertyDateValue:    "date",
+}
