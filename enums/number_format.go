@@ -1,5 +1,7 @@
 package enums
 
+import "encoding/json"
+
 type NumberFormatType uint8
 
 const (
@@ -44,7 +46,7 @@ const (
 	SingaporeDollar
 )
 
-var NumberFormatTypeMap = map[NumberFormatType]string{
+var numberFormatTypeMap = map[NumberFormatType]string{
 	Numeric:          "number",
 	NumberWithCommas: "number_with_commas",
 	Percent:          "percent",
@@ -85,7 +87,66 @@ var NumberFormatTypeMap = map[NumberFormatType]string{
 	UruguayanPeso:    "uruguayan_peso",
 	SingaporeDollar:  "singapore_dollar",
 }
+var numberFormatTypeIndexes = map[string]NumberFormatType{
+	"number":             Numeric,
+	"number_with_commas": NumberWithCommas,
+	"percent":            Percent,
+	"dollar":             Dollar,
+	"canadian_dollar":    CanadianDollar,
+	"euro":               Euro,
+	"pound":              Pound,
+	"yen":                Yen,
+	"ruble":              Ruble,
+	"rupee":              Rupee,
+	"won":                Won,
+	"yuan":               Yuan,
+	"real":               Real,
+	"lira":               Lira,
+	"rupiah":             Rupiah,
+	"franc":              Franc,
+	"hong_kong_dollar":   HongKongDollar,
+	"new_zealand_dollar": NewZealandDollar,
+	"krona":              Krona,
+	"norwegian_krone":    NorwegianKrone,
+	"mexican_peso":       MexicanPeso,
+	"rand":               Rand,
+	"new_taiwan_dollar":  NewTaiwanDollar,
+	"danish_krone":       DanishKrone,
+	"zloty":              Zloty,
+	"baht":               Baht,
+	"forint":             Forint,
+	"koruna":             Koruna,
+	"shekel":             Shekel,
+	"chilean_peso":       ChileanPeso,
+	"philippine_peso":    PhilippinePeso,
+	"dirham":             Dirham,
+	"colombian_peso":     ColombianPeso,
+	"riyal":              Riyal,
+	"ringgit":            Ringgit,
+	"leu":                Leu,
+	"argentine_peso":     ArgentinePeso,
+	"uruguayan_peso":     UruguayanPeso,
+	"singapore_dollar":   SingaporeDollar,
+}
 
+func ParseNumberFormat(s string) NumberFormatType {
+	return numberFormatTypeIndexes[s]
+}
 func (n NumberFormatType) String() string {
-	return NumberFormatTypeMap[n]
+	return numberFormatTypeMap[n]
+}
+
+func (n NumberFormatType) MarshalJSON() ([]byte, error) {
+	return json.Marshal(n.String())
+}
+
+func (n *NumberFormatType) UnmarshalJSON(input []byte) error {
+	var j string
+	err := json.Unmarshal(input, &j)
+	if err != nil {
+		return err
+	}
+	// Note that if the string cannot be found then it will be set to the zero value, 'Created' in this case.
+	*n = ParseNumberFormat(j)
+	return nil
 }

@@ -1,5 +1,7 @@
 package enums
 
+import "encoding/json"
+
 type BlockType uint8
 
 const (
@@ -34,7 +36,7 @@ const (
 	UnsupportedBlockType
 )
 
-var BlockTypeEnumMap = map[BlockType]string{
+var blockTypeEnumMap = map[BlockType]string{
 	ParagraphBlockType:        "paragraph",
 	H1BlockType:               "heading_1",
 	H2BlockType:               "heading_2",
@@ -66,6 +68,56 @@ var BlockTypeEnumMap = map[BlockType]string{
 	UnsupportedBlockType:      "unsupported",
 }
 
+var blockTypeEnumIndexes = map[string]BlockType{
+	"paragraph":          ParagraphBlockType,
+	"heading_1":          H1BlockType,
+	"heading_2":          H2BlockType,
+	"heading_3":          H3BlockType,
+	"bulleted_list_item": BulletListItemBlockType,
+	"numbered_list_item": NumberedListItemBlockType,
+	"to_do":              ToDoBlockType,
+	"toggle":             ToggleBlockType,
+	"child_page":         ChildPageBlockType,
+	"child_database":     ChildDatabaseBlockType,
+	"embed":              EmbedBlockType,
+	"image":              ImageBlockType,
+	"video":              VideoBlockType,
+	"file":               FileBlockType,
+	"pdf":                PdfBlockType,
+	"bookmark":           BookmarkBlockType,
+	"callout":            CalloutBlockType,
+	"code":               CodeBlockType,
+	"quote":              QuoteBlockType,
+	"equation":           EquationBlockType,
+	"divider":            DividerBlockType,
+	"table_of_contents":  TableOfContentsBlockType,
+	"column":             ColumnBlockType,
+	"column_list":        ColumnListBlockType,
+	"link_preview":       LinkPreviewBlockType,
+	"synced_block":       SyncedBlockBlockType,
+	"template":           TemplateBlockType,
+	"link_to_page":       LinkToPageBlockType,
+	"unsupported":        UnsupportedBlockType,
+}
+
+func ParseBlockType(s string) BlockType {
+	return blockTypeEnumIndexes[s]
+}
 func (b BlockType) String() string {
-	return BlockTypeEnumMap[b]
+	return blockTypeEnumMap[b]
+}
+
+func (b BlockType) MarshalJSON() ([]byte, error) {
+	return json.Marshal(b.String())
+}
+
+func (b *BlockType) UnmarshalJSON(d []byte) error {
+	var j string
+	err := json.Unmarshal(d, &j)
+	if err != nil {
+		return err
+	}
+	// Note that if the string cannot be found then it will be set to the zero value, 'Created' in this case.
+	*b = ParseBlockType(j)
+	return nil
 }

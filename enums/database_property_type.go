@@ -1,5 +1,7 @@
 package enums
 
+import "encoding/json"
+
 type DatabasePropertyType uint8
 
 const (
@@ -25,7 +27,7 @@ const (
 	Status
 )
 
-var DatabasePropertyTypeMap = map[DatabasePropertyType]string{
+var databasePropertyTypeMap = map[DatabasePropertyType]string{
 	Title:          "title",
 	RichText:       "rich_text",
 	Number:         "number",
@@ -48,6 +50,47 @@ var DatabasePropertyTypeMap = map[DatabasePropertyType]string{
 	Status:         "status",
 }
 
+var databasePropertyTypeIndexes = map[string]DatabasePropertyType{
+	"title":            Title,
+	"rich_text":        RichText,
+	"number":           Number,
+	"select":           Select,
+	"multi_select":     MultiSelect,
+	"date":             Date,
+	"people":           People,
+	"files":            Files,
+	"checkbox":         Checkbox,
+	"url":              Url,
+	"email":            Email,
+	"phone_number":     PhoneNumber,
+	"formula":          Formula,
+	"relation":         Relation,
+	"rollup":           RollUp,
+	"created_time":     CreatedTime,
+	"created_by":       CreatedBy,
+	"last_edited_by":   LastEditedBy,
+	"last_edited_time": LastEditedTime,
+	"status":           Status,
+}
+
+func ParseDatabasePropertyType(s string) DatabasePropertyType {
+	return databasePropertyTypeIndexes[s]
+}
 func (d DatabasePropertyType) String() string {
-	return DatabasePropertyTypeMap[d]
+	return databasePropertyTypeMap[d]
+}
+
+func (d DatabasePropertyType) MarshalJSON() ([]byte, error) {
+	return json.Marshal(d.String())
+}
+
+func (d *DatabasePropertyType) UnmarshalJSON(input []byte) error {
+	var j string
+	err := json.Unmarshal(input, &j)
+	if err != nil {
+		return err
+	}
+	// Note that if the string cannot be found then it will be set to the zero value, 'Created' in this case.
+	*d = ParseDatabasePropertyType(j)
+	return nil
 }
