@@ -1,6 +1,6 @@
 package enums
 
-type BlockType int
+type BlockType uint8
 
 const (
 	ParagraphBlockType = iota
@@ -64,4 +64,8 @@ var BlockTypeEnumMap = map[BlockType]string{
 	TemplateBlockType:         "template",
 	LinkToPageBlockType:       "link_to_page",
 	UnsupportedBlockType:      "unsupported",
+}
+
+func (b BlockType) String() string {
+	return BlockTypeEnumMap[b]
 }

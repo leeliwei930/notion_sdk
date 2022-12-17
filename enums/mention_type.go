@@ -1,6 +1,6 @@
 package enums
 
-type MentionType int
+type MentionType uint8
 
 const (
 	User MentionType = iota
@@ -16,4 +16,8 @@ var MentionTypeMap = map[MentionType]string{
 	Database:    "database",
 	Data:        "data",
 	LinkPreview: "link_preview",
+}
+
+func (m MentionType) String() string {
+	return MentionTypeMap[m]
 }

@@ -1,6 +1,6 @@
 package enums
 
-type FormulaPropertyValueType int
+type FormulaPropertyValueType uint8
 
 const (
 	FormulaPropertyStringValue FormulaPropertyValueType = iota
@@ -14,4 +14,8 @@ var FormulaPropertyValueTypeMap = map[FormulaPropertyValueType]string{
 	FormulaPropertyNumberValue:  "number",
 	FormulaPropertyBooleanValue: "boolean",
 	FormulaPropertyDateValue:    "date",
+}
+
+func (f FormulaPropertyValueType) String() string {
+	return FormulaPropertyValueTypeMap[f]
 }

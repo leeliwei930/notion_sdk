@@ -1,6 +1,6 @@
 package enums
 
-type DatabasePropertyType int
+type DatabasePropertyType uint8
 
 const (
 	Title DatabasePropertyType = iota
@@ -46,4 +46,8 @@ var DatabasePropertyTypeMap = map[DatabasePropertyType]string{
 	LastEditedBy:   "last_edited_by",
 	LastEditedTime: "last_edited_time",
 	Status:         "status",
+}
+
+func (d DatabasePropertyType) String() string {
+	return DatabasePropertyTypeMap[d]
 }

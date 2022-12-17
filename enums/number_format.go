@@ -1,6 +1,6 @@
 package enums
 
-type NumberFormatType int
+type NumberFormatType uint8
 
 const (
 	Numeric NumberFormatType = iota
@@ -84,4 +84,8 @@ var NumberFormatTypeMap = map[NumberFormatType]string{
 	ArgentinePeso:    "argentine_peso",
 	UruguayanPeso:    "uruguayan_peso",
 	SingaporeDollar:  "singapore_dollar",
+}
+
+func (n NumberFormatType) String() string {
+	return NumberFormatTypeMap[n]
 }

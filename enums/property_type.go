@@ -1,25 +1,51 @@
 package enums
 
-type PropertyType string
+type PropertyType uint8
 
 const (
-	RichTextPropertyType       PropertyType = "rich_text"
-	NumberPropertyType         PropertyType = "number"
-	SelectPropertyType         PropertyType = "select"
-	MultiSelectPropertyType    PropertyType = "multi_select"
-	DatePropertyType           PropertyType = "date"
-	FormulaPropertyType        PropertyType = "formula"
-	RelationPropertyType       PropertyType = "relation"
-	RollUpPropertyType         PropertyType = "rollup"
-	TitlePropertyType          PropertyType = "title"
-	PeoplePropertyType         PropertyType = "people"
-	FilesPropertyType          PropertyType = "files"
-	CheckboxPropertyType       PropertyType = "checkbox"
-	UrlPropertyType            PropertyType = "url"
-	EmailPropertyType          PropertyType = "email"
-	PhoneNumberPropertyType    PropertyType = "phone_number"
-	CreatedTimePropertyType    PropertyType = "created_time"
-	CreatedByPropertyType      PropertyType = "created_by"
-	LastEditedTimePropertyType PropertyType = "last_edited_time"
-	LastEditedByPropertyType   PropertyType = "last_edited_by"
+	RichTextPropertyType PropertyType = iota
+	NumberPropertyType
+	SelectPropertyType
+	MultiSelectPropertyType
+	DatePropertyType
+	FormulaPropertyType
+	RelationPropertyType
+	RollUpPropertyType
+	TitlePropertyType
+	PeoplePropertyType
+	FilesPropertyType
+	CheckboxPropertyType
+	UrlPropertyType
+	EmailPropertyType
+	PhoneNumberPropertyType
+	CreatedTimePropertyType
+	CreatedByPropertyType
+	LastEditedTimePropertyType
+	LastEditedByPropertyType
 )
+
+var PropertyTypeMap = map[PropertyType]string{
+	RichTextPropertyType:       "rich_text",
+	NumberPropertyType:         "number",
+	SelectPropertyType:         "select",
+	MultiSelectPropertyType:    "multi_select",
+	DatePropertyType:           "date",
+	FormulaPropertyType:        "formula",
+	RelationPropertyType:       "relation",
+	RollUpPropertyType:         "rollup",
+	TitlePropertyType:          "title",
+	PeoplePropertyType:         "people",
+	FilesPropertyType:          "files",
+	CheckboxPropertyType:       "checkbox",
+	UrlPropertyType:            "url",
+	EmailPropertyType:          "email",
+	PhoneNumberPropertyType:    "phone_number",
+	CreatedTimePropertyType:    "created_time",
+	CreatedByPropertyType:      "created_by",
+	LastEditedTimePropertyType: "last_edited_time",
+	LastEditedByPropertyType:   "last_edited_by",
+}
+
+func (p PropertyType) String() string {
+	return PropertyTypeMap[p]
+}

@@ -1,6 +1,6 @@
 package enums
 
-type Color int
+type Color uint8
 
 const (
 	Default Color = iota
@@ -44,4 +44,8 @@ var ColorEnumsMap = map[Color]string{
 	PurpleBackground: "purple_background",
 	PinkBackground:   "pink_background",
 	RedBackground:    "red_background",
+}
+
+func (c Color) String() string {
+	return ColorEnumsMap[c]
 }
