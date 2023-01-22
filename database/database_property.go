@@ -8,8 +8,9 @@ import (
 type DatabaseProperty struct {
 	ID          string                     `json:"id,omitempty"`
 	Type        enums.DatabasePropertyType `json:"type,omitempty"`
+	Title       *EmptyProperty             `json:"title,omitempty"`
 	Name        string                     `json:"name,omitempty"`
-	RichText    *[]models.RichText         `json:"rich_text,omitempty"`
+	RichText    *models.RichText           `json:"rich_text,omitempty"`
 	Number      *NumberProperty            `json:"number,omitempty"`
 	Select      *SelectProperty            `json:"select,omitempty"`
 	Status      *StatusProperty            `json:"status,omitempty"`
