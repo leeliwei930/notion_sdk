@@ -12,18 +12,19 @@ type CreatePageOptions func(body *CreatePageOptionsBody)
 type CreatePageOptionsBody struct {
 	Parent     *models.PageParent          `json:"parent"`
 	Properties map[string]*models.Property `json:"properties"`
-	Children   *[]*models.Block            `json:"children,omitempty"`
+	Children   []*models.Block             `json:"children,omitempty"`
 	Icon       *models.Icon                `json:"icon,omitempty"`
 	Cover      *models.File                `json:"cover,omitempty"`
 }
 
-func CreatePage(options ...CreatePageOptions) (notionPage *models.Page, err error) {
+func CreatePage(options ...CreatePageOptions) (*models.Page, error) {
 	requestBody := &CreatePageOptionsBody{}
-	notionPage = &models.Page{}
 
 	for _, opt := range options {
 		opt(requestBody)
 	}
+	notionPage := &models.Page{}
+
 	response, err := client.Notion().
 		SetAccessToken("secret_j8c5tvxQM854jS32JLGTXNi2TKUFu5QeDKzI7PodtnC").
 		InitializeConfig(&config.NotionConfig{
@@ -33,12 +34,16 @@ func CreatePage(options ...CreatePageOptions) (notionPage *models.Page, err erro
 		SetBody(requestBody).
 		SetResult(notionPage).
 		Post("/pages")
-
-	if response.IsError() {
-		err = errors.New(response.Error().(*models.NotionError).Message)
+	if err != nil {
+		return nil, err
 	}
-	return notionPage, err
+	if response.IsError() {
+		respErr := response.Error().(*models.NotionError)
 
+		err = errors.New(respErr.Message)
+		return nil, err
+	}
+	return notionPage, nil
 }
 
 func SetPageParent(parent *models.PageParent) CreatePageOptions {
@@ -53,7 +58,7 @@ func SetPageProperties(properties map[string]*models.Property) CreatePageOptions
 	}
 }
 
-func SetPageChildren(children *[]*models.Block) CreatePageOptions {
+func SetPageChildren(children []*models.Block) CreatePageOptions {
 	return func(option *CreatePageOptionsBody) {
 		option.Children = children
 	}

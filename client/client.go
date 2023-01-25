@@ -1,49 +1,61 @@
 package client
 
 import (
+	"net/http"
+
 	"github.com/go-resty/resty/v2"
 	"github.com/leeliwei930/notion_sdk/config"
 	"github.com/leeliwei930/notion_sdk/models"
 )
 
-func setupRequest() *resty.Request {
+var restyClient *resty.Client
+
+func setupClient() *resty.Client {
 	notionError := &models.NotionError{}
-	client := resty.
+	if restyClient != nil {
+		return restyClient
+	}
+	restyClient = resty.
 		New().
 		SetBaseURL("https://api.notion.com/v1/").
 		SetHeader("Content-Type", "application/json").
 		SetError(notionError)
 
-	return client.R()
+	return restyClient
 
 }
 
 type NotionClient struct {
-	config  *config.NotionConfig
-	request *resty.Request
+	config       *config.NotionConfig
+	restyRequest *resty.Request
+	restyClient  *resty.Client
+}
+
+func (client *NotionClient) GetHttpBaseClient() *http.Client {
+	return client.restyClient.GetClient()
 }
 
 func (client *NotionClient) SetAccessToken(accessToken string) *NotionClient {
 
-	client.request.SetAuthToken(accessToken)
+	client.restyRequest.SetAuthToken(accessToken)
 	return client
 }
 
 func (client *NotionClient) InitializeConfig(config *config.NotionConfig) *NotionClient {
 
 	client.config = config
-	client.request.SetHeader("Notion-Version", client.config.NotionVersion)
-
+	client.restyRequest.SetHeader("Notion-Version", client.config.NotionVersion)
 	return client
 }
 
 func (client *NotionClient) Request() *resty.Request {
-	return client.request
+	return client.restyRequest
 }
 func Notion() *NotionClient {
-	req := setupRequest()
+	restyClient := setupClient()
 	client := &NotionClient{
-		request: req,
+		restyClient:  restyClient,
+		restyRequest: restyClient.R(),
 	}
 	return client
 }

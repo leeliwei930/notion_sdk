@@ -18,9 +18,8 @@ type CreateDatabaseBody struct {
 	Properties map[string]*database.DatabaseProperty `json:"properties,omitempty"`
 }
 
-func CreateDatabase(options ...CreateDatabaseOptions) (notionDatabase *database.Database, err error) {
+func CreateDatabase(options ...CreateDatabaseOptions) (notionDatabase database.Database, err error) {
 	requestBody := &CreateDatabaseBody{}
-	notionDatabase = &database.Database{}
 
 	for _, opt := range options {
 		opt(requestBody)
