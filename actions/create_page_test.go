@@ -1,4 +1,4 @@
-package actions
+package actions_test
 
 import (
 	"encoding/json"
@@ -6,6 +6,7 @@ import (
 	"testing"
 
 	"github.com/jarcoal/httpmock"
+	"github.com/leeliwei930/notion_sdk/actions"
 	"github.com/leeliwei930/notion_sdk/client"
 	"github.com/leeliwei930/notion_sdk/models"
 	"github.com/stretchr/testify/assert"
@@ -19,7 +20,7 @@ func TestCreatePageSuccess(t *testing.T) {
 	httpmock.RegisterResponder("POST", "https://api.notion.com/v1/pages", jsonResponder)
 	defer httpmock.DeactivateAndReset()
 
-	notionPage, _ := CreatePage()
+	notionPage, _ := actions.CreatePage()
 	var mockCreatedPage models.Page
 	json.Unmarshal(mockResponseFile.Bytes(), &mockCreatedPage)
 
@@ -36,7 +37,7 @@ func TestCreatePageFailure(t *testing.T) {
 	httpmock.RegisterResponder("POST", "https://api.notion.com/v1/pages", jsonResponder)
 	defer httpmock.DeactivateAndReset()
 
-	notionPage, err := CreatePage()
+	notionPage, err := actions.CreatePage()
 	assert.Nil(t, notionPage)
 	assert.EqualError(t, err, errors.New("Unavailable").Error())
 

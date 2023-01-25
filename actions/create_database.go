@@ -18,12 +18,13 @@ type CreateDatabaseBody struct {
 	Properties map[string]*database.DatabaseProperty `json:"properties,omitempty"`
 }
 
-func CreateDatabase(options ...CreateDatabaseOptions) (notionDatabase database.Database, err error) {
+func CreateDatabase(options ...CreateDatabaseOptions) (*database.Database, error) {
 	requestBody := &CreateDatabaseBody{}
 
 	for _, opt := range options {
 		opt(requestBody)
 	}
+	notionDatabase := &database.Database{}
 
 	response, err := client.Notion().
 		SetAccessToken("secret_j8c5tvxQM854jS32JLGTXNi2TKUFu5QeDKzI7PodtnC").
@@ -34,12 +35,17 @@ func CreateDatabase(options ...CreateDatabaseOptions) (notionDatabase database.D
 		SetBody(requestBody).
 		SetResult(notionDatabase).
 		Post("/databases")
-
-	if response.IsError() {
-		err = errors.New(response.Error().(*models.NotionError).Message)
+	if err != nil {
+		return nil, err
 	}
 
-	return notionDatabase, err
+	if response.IsError() {
+		respErr := response.Error().(*models.NotionError)
+		err = errors.New(respErr.Message)
+		return nil, err
+	}
+
+	return notionDatabase, nil
 
 }
 
