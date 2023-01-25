@@ -40,3 +40,9 @@ func (d *TimestampType) UnmarshalJSON(input []byte) error {
 	*d = ParseTimestampType(j)
 	return nil
 }
+
+type Timestamp struct {
+	Types      TimestampType `json:"timestamp,omitempty"`
+	CreatedTime    DateFilter    `json:"created_time,omitempty"`
+	LastEditedTime DateFilter    `json:"last_edited_time,omitempty"`
+}
