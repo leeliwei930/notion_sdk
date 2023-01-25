@@ -4,7 +4,7 @@ import (
 	"time"
 )
 
-type DateFilter struct {
+type Date struct {
 	Equals     *time.Time     `json:"equals,omitempty"`
 	Before     *time.Time     `json:"before,omitempty"`
 	After      *time.Time     `json:"after,omitempty"`

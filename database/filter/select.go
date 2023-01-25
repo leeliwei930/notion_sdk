@@ -1,7 +1,7 @@
 package filter
 
 // as status type filter props is identical with select type
-type Status Select
+type Status = Select
 
 type Select struct {
 	Equals     *string `json:"equals,omitempty"`
