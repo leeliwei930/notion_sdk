@@ -14,7 +14,7 @@ import (
 
 func TestCreatePageSuccess(t *testing.T) {
 	httpmock.ActivateNonDefault(client.Notion().GetHttpBaseClient())
-	mockResponseFile := httpmock.File("create_page_response.json")
+	mockResponseFile := httpmock.File("tests/response_sample/create_page_response.json")
 	jsonResponder, _ := httpmock.NewJsonResponder(200, mockResponseFile)
 
 	httpmock.RegisterResponder("POST", "https://api.notion.com/v1/pages", jsonResponder)
@@ -30,7 +30,7 @@ func TestCreatePageSuccess(t *testing.T) {
 
 func TestCreatePageFailure(t *testing.T) {
 	httpmock.ActivateNonDefault(client.Notion().GetHttpBaseClient())
-	mockErrResponseFile := httpmock.File("error_response.json")
+	mockErrResponseFile := httpmock.File("tests/response_sample/error_response.json")
 
 	jsonResponder, _ := httpmock.NewJsonResponder(400, mockErrResponseFile)
 

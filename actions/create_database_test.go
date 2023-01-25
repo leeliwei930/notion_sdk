@@ -2,6 +2,7 @@ package actions_test
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"testing"
 
@@ -14,7 +15,7 @@ import (
 
 func TestCreateDatabaseSuccess(t *testing.T) {
 	httpmock.ActivateNonDefault(client.Notion().GetHttpBaseClient())
-	mockCreatedDatabaseResponse := httpmock.File("create_database_response.json")
+	mockCreatedDatabaseResponse := httpmock.File("tests/response_sample/create_database_response.json")
 	jsonResponder, _ := httpmock.NewJsonResponder(200, mockCreatedDatabaseResponse)
 	httpmock.RegisterResponder("POST", "https://api.notion.com/v1/databases", jsonResponder)
 	defer httpmock.DeactivateAndReset()
@@ -28,4 +29,17 @@ func TestCreateDatabaseSuccess(t *testing.T) {
 	}
 	assert.Equal(t, mockCreatedDatabase, *notionDatabase)
 
+}
+
+func TestCreateDatabaseFail(t *testing.T) {
+	httpmock.ActivateNonDefault(client.Notion().GetHttpBaseClient())
+	mockErrorResponse := httpmock.File("tests/response_sample/error_response.json")
+	jsonResponder, _ := httpmock.NewJsonResponder(400, mockErrorResponse)
+	httpmock.RegisterResponder("POST", "https://api.notion.com/v1/databases", jsonResponder)
+	defer httpmock.DeactivateAndReset()
+
+	notionDatabase, err := actions.CreateDatabase()
+	assert.Nil(t, notionDatabase)
+
+	assert.EqualError(t, err, errors.New("Unavailable").Error())
 }
