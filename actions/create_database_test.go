@@ -31,6 +31,7 @@ func TestCreateDatabaseSuccess(t *testing.T) {
 	parentPageID, _ = uuid.NewRandom()
 	httpmock.ActivateNonDefault(client.Notion().GetHttpBaseClient())
 	mockCreatedDatabaseResponse := httpmock.File("tests/response_sample/create_database_response.json")
+	defer httpmock.DeactivateAndReset()
 
 	httpmock.RegisterResponder("POST", "https://api.notion.com/v1/databases", func(req *http.Request) (*http.Response, error) {
 		var parsedReqBody actions.CreateDatabaseBody
@@ -80,7 +81,6 @@ func TestCreateDatabaseSuccess(t *testing.T) {
 		}, parsedReqBody)
 		return httpmock.NewJsonResponse(200, mockCreatedDatabaseResponse)
 	})
-	defer httpmock.DeactivateAndReset()
 
 	notionDatabase, _ := actions.CreateDatabase(
 		actions.SetDatabaseTitle(
