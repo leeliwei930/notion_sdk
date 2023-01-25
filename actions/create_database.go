@@ -4,7 +4,6 @@ import (
 	"errors"
 
 	"github.com/leeliwei930/notion_sdk/client"
-	"github.com/leeliwei930/notion_sdk/config"
 	"github.com/leeliwei930/notion_sdk/database"
 	"github.com/leeliwei930/notion_sdk/models"
 )
@@ -13,7 +12,7 @@ type CreateDatabaseOptions func(body *CreateDatabaseBody)
 type CreateDatabaseBody struct {
 	Parent     *models.PageParent                    `json:"parent,omitempty"`
 	Icon       *models.Icon                          `json:"icon,omitempty"`
-	Title      []models.RichText                    `json:"title,omitempty"`
+	Title      []models.RichText                     `json:"title,omitempty"`
 	Cover      *models.File                          `json:"cover,omitempty"`
 	Properties map[string]*database.DatabaseProperty `json:"properties,omitempty"`
 }
@@ -27,10 +26,6 @@ func CreateDatabase(options ...CreateDatabaseOptions) (*database.Database, error
 	notionDatabase := &database.Database{}
 
 	response, err := client.Notion().
-		SetAccessToken("secret_j8c5tvxQM854jS32JLGTXNi2TKUFu5QeDKzI7PodtnC").
-		InitializeConfig(&config.NotionConfig{
-			NotionVersion: "2022-06-28",
-		}).
 		Request().
 		SetBody(requestBody).
 		SetResult(notionDatabase).

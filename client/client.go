@@ -1,6 +1,7 @@
 package client
 
 import (
+	"errors"
 	"net/http"
 
 	"github.com/go-resty/resty/v2"
@@ -9,6 +10,8 @@ import (
 )
 
 var restyClient *resty.Client
+var notionClient *NotionClient
+var notionConfig *config.NotionConfig
 
 func setupClient() *resty.Client {
 	notionError := &models.NotionError{}
@@ -35,27 +38,33 @@ func (client *NotionClient) GetHttpBaseClient() *http.Client {
 	return client.restyClient.GetClient()
 }
 
-func (client *NotionClient) SetAccessToken(accessToken string) *NotionClient {
+func loadNotionClient() *NotionClient {
+	if notionConfig == nil {
+		panic(errors.New("Notion config isn't initialize, do you call client.LoadNotionConfig before accessing to Notion client instance?"))
+	}
 
-	client.restyRequest.SetAuthToken(accessToken)
-	return client
-}
-
-func (client *NotionClient) InitializeConfig(config *config.NotionConfig) *NotionClient {
-
-	client.config = config
-	client.restyRequest.SetHeader("Notion-Version", client.config.NotionVersion)
-	return client
+	if notionClient == nil {
+		notionClient = &NotionClient{
+			config:       notionConfig,
+			restyClient:  restyClient,
+			restyRequest: restyClient.R(),
+		}
+		notionClient.restyRequest.SetHeader("Notion-Version", notionClient.config.NotionVersion)
+		notionClient.restyRequest.SetAuthToken(notionClient.config.AccessToken)
+	}
+	return notionClient
 }
 
 func (client *NotionClient) Request() *resty.Request {
 	return client.restyRequest
 }
+
+func InitializeNotionConfig(config *config.NotionConfig) {
+	notionConfig = config
+}
+
 func Notion() *NotionClient {
-	restyClient := setupClient()
-	client := &NotionClient{
-		restyClient:  restyClient,
-		restyRequest: restyClient.R(),
-	}
-	return client
+	restyClient = setupClient()
+	notionClient = loadNotionClient()
+	return notionClient
 }

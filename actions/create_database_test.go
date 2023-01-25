@@ -4,16 +4,26 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"os"
 	"testing"
 
 	"github.com/jarcoal/httpmock"
 	"github.com/leeliwei930/notion_sdk/actions"
 	"github.com/leeliwei930/notion_sdk/client"
+	"github.com/leeliwei930/notion_sdk/config"
 	"github.com/leeliwei930/notion_sdk/database"
 	"github.com/stretchr/testify/assert"
 )
 
+func TestMain(m *testing.M) {
+	client.InitializeNotionConfig(&config.NotionConfig{})
+
+	exitCode := m.Run()
+
+	os.Exit(exitCode)
+}
 func TestCreateDatabaseSuccess(t *testing.T) {
+
 	httpmock.ActivateNonDefault(client.Notion().GetHttpBaseClient())
 	mockCreatedDatabaseResponse := httpmock.File("tests/response_sample/create_database_response.json")
 	jsonResponder, _ := httpmock.NewJsonResponder(200, mockCreatedDatabaseResponse)
@@ -32,6 +42,7 @@ func TestCreateDatabaseSuccess(t *testing.T) {
 }
 
 func TestCreateDatabaseFail(t *testing.T) {
+
 	httpmock.ActivateNonDefault(client.Notion().GetHttpBaseClient())
 	mockErrorResponse := httpmock.File("tests/response_sample/error_response.json")
 	jsonResponder, _ := httpmock.NewJsonResponder(400, mockErrorResponse)

@@ -4,7 +4,6 @@ import (
 	"errors"
 
 	"github.com/leeliwei930/notion_sdk/client"
-	"github.com/leeliwei930/notion_sdk/config"
 	"github.com/leeliwei930/notion_sdk/models"
 )
 
@@ -26,10 +25,6 @@ func CreatePage(options ...CreatePageOptions) (*models.Page, error) {
 	notionPage := &models.Page{}
 
 	response, err := client.Notion().
-		SetAccessToken("secret_j8c5tvxQM854jS32JLGTXNi2TKUFu5QeDKzI7PodtnC").
-		InitializeConfig(&config.NotionConfig{
-			NotionVersion: "2022-06-28",
-		}).
 		Request().
 		SetBody(requestBody).
 		SetResult(notionPage).
