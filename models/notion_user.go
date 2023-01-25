@@ -9,7 +9,7 @@ type User struct {
 	Object    string          `json:"object"`
 	ID        uuid.UUID       `json:"id"`
 	Type      *enums.UserType `json:"type,omitempty"`
-	AvatarUrl *string         `json:"avatar_url,omitempty"`
+	AvatarUrl string          `json:"avatar_url,omitempty"`
 	Person    *Person         `json:"person,omitempty"`
 	Bot       *Bot            `json:"bot,omitempty"`
 }

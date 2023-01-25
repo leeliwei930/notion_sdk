@@ -13,7 +13,7 @@ type CreateDatabaseOptions func(body *CreateDatabaseBody)
 type CreateDatabaseBody struct {
 	Parent     *models.PageParent                    `json:"parent,omitempty"`
 	Icon       *models.Icon                          `json:"icon,omitempty"`
-	Title      []*models.RichText                    `json:"title,omitempty"`
+	Title      []models.RichText                    `json:"title,omitempty"`
 	Cover      *models.File                          `json:"cover,omitempty"`
 	Properties map[string]*database.DatabaseProperty `json:"properties,omitempty"`
 }
@@ -49,7 +49,7 @@ func CreateDatabase(options ...CreateDatabaseOptions) (*database.Database, error
 
 }
 
-func SetDatabaseTitle(title []*models.RichText) CreateDatabaseOptions {
+func SetDatabaseTitle(title []models.RichText) CreateDatabaseOptions {
 	return func(option *CreateDatabaseBody) {
 		option.Title = title
 	}

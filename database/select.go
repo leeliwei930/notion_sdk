@@ -6,7 +6,7 @@ import (
 )
 
 type SelectProperty struct {
-	SelectOptions []*SelectOptions `json:"options,omitempty"`
+	SelectOptions []SelectOptions `json:"options,omitempty"`
 }
 
 type SelectOptions struct {

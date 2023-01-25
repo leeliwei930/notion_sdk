@@ -9,7 +9,7 @@ import (
 
 type SelectProperty struct {
 	ID    *uuid.UUID  `json:"id,omitempty"`
-	Name  *string     `json:"name,omitempty"`
+	Name  string      `json:"name,omitempty"`
 	Color enums.Color `json:"color"`
 }
 
@@ -22,7 +22,7 @@ type DateProperty struct {
 
 type FormulaProperty struct {
 	Type     enums.FormulaPropertyValueType `json:"type"`
-	String   *string                        `json:"string,omitempty"`
+	String   string                         `json:"string,omitempty"`
 	Number   *float64                       `json:"number,omitempty"`
 	Boolean  bool                           `json:"boolean,omitempty"`
 	Date     *DateProperty                  `json:"date,omitempty"`
@@ -40,17 +40,17 @@ type RollUpProperty struct {
 
 type RollUpArrayProperty struct {
 	Type           enums.PropertyType `json:"type"`
-	Title          *[]RichText        `json:"title,omitempty"`
-	RichText       *[]RichText        `json:"rich_text,omitempty"`
+	Title          []RichText         `json:"title,omitempty"`
+	RichText       []RichText         `json:"rich_text,omitempty"`
 	Number         *float64           `json:"number,omitempty"`
 	Select         *SelectProperty    `json:"select,omitempty"`
-	MultiSelect    *[]SelectProperty  `json:"multi_select,omitempty"`
+	MultiSelect    []SelectProperty   `json:"multi_select,omitempty"`
 	Date           *DateProperty      `json:"date,omitempty"`
 	Formula        *FormulaProperty   `json:"formula,omitempty"`
 	Relation       *RelationProperty  `json:"relation,omitempty"`
 	RollUp         *RollUpProperty    `json:"rollup,omitempty"`
-	People         *[]User            `json:"people,omitempty"`
-	Files          *[]File            `json:"files,omitempty"`
+	People         []User             `json:"people,omitempty"`
+	Files          []File             `json:"files,omitempty"`
 	Checkbox       bool               `json:"checkbox,omitempty"`
 	Url            *string            `json:"url,omitempty"`
 	Email          *string            `json:"email,omitempty"`

@@ -10,11 +10,11 @@ import (
 
 type CreatePageOptions func(body *CreatePageOptionsBody)
 type CreatePageOptionsBody struct {
-	Parent     *models.PageParent          `json:"parent"`
-	Properties map[string]*models.Property `json:"properties"`
-	Children   []*models.Block             `json:"children,omitempty"`
-	Icon       *models.Icon                `json:"icon,omitempty"`
-	Cover      *models.File                `json:"cover,omitempty"`
+	Parent     *models.PageParent         `json:"parent"`
+	Properties map[string]models.Property `json:"properties"`
+	Children   []models.Block             `json:"children,omitempty"`
+	Icon       *models.Icon               `json:"icon,omitempty"`
+	Cover      *models.File               `json:"cover,omitempty"`
 }
 
 func CreatePage(options ...CreatePageOptions) (*models.Page, error) {
@@ -52,13 +52,13 @@ func SetPageParent(parent *models.PageParent) CreatePageOptions {
 	}
 }
 
-func SetPageProperties(properties map[string]*models.Property) CreatePageOptions {
+func SetPageProperties(properties map[string]models.Property) CreatePageOptions {
 	return func(option *CreatePageOptionsBody) {
 		option.Properties = properties
 	}
 }
 
-func SetPageChildren(children []*models.Block) CreatePageOptions {
+func SetPageChildren(children []models.Block) CreatePageOptions {
 	return func(option *CreatePageOptionsBody) {
 		option.Children = children
 	}

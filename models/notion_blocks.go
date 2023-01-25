@@ -35,11 +35,11 @@ type Block struct {
 	PDF              *File                  `json:"pdf,omitempty"`
 	Bookmark         *BookmarkBlock         `json:"bookmark,omitempty"`
 	Equation         *Equation              `json:"equation,omitempty"`
-	Divider          *map[string]string     `json:"divider,omitempty"`
-	TableOfContents  *map[string]string     `json:"table_of_contents,omitempty"`
-	Breadcrumb       *map[string]string     `json:"breadcrumb,omitempty"`
-	ColumnList       *map[string]string     `json:"column_list,omitempty"`
-	Column           *map[string]string     `json:"column,omitempty"`
+	Divider          map[string]string      `json:"divider,omitempty"`
+	TableOfContents  map[string]string      `json:"table_of_contents,omitempty"`
+	Breadcrumb       map[string]string      `json:"breadcrumb,omitempty"`
+	ColumnList       map[string]string      `json:"column_list,omitempty"`
+	Column           map[string]string      `json:"column,omitempty"`
 	LinkPreview      *LinkPreviewBlock      `json:"link_preview,omitempty"`
 	Template         *TemplateBlock         `json:"template,omitempty"`
 	LinkToPage       *LinkToPageBlock       `json:"link_to_page,omitempty"`
@@ -47,12 +47,12 @@ type Block struct {
 }
 
 type ParagraphBlock struct {
-	RichText *[]RichText `json:"rich_text,omitempty"`
-	Children *[]Block    `json:"children,omitempty"`
+	RichText []RichText `json:"rich_text,omitempty"`
+	Children []Block    `json:"children,omitempty"`
 }
 
 type Heading1Block struct {
-	RichText *[]RichText `json:"rich_text"`
+	RichText []RichText `json:"rich_text"`
 }
 
 type Heading2Block Heading1Block
@@ -60,20 +60,20 @@ type Heading2Block Heading1Block
 type Heading3Block Heading1Block
 
 type CalloutBlock struct {
-	RichText *[]RichText `json:"rich_text"`
-	Icon     *[]Icon     `json:"icon"`
-	Children *[]Block    `json:"children"`
+	RichText []RichText `json:"rich_text"`
+	Icon     []Icon     `json:"icon"`
+	Children []Block    `json:"children"`
 }
 
 type QuoteBlock struct {
-	RichText *[]RichText `json:"rich_text"`
-	Children *[]Block    `json:"children"`
+	RichText []RichText `json:"rich_text"`
+	Children []Block    `json:"children"`
 }
 
 type ToDoBlock struct {
-	RichText *[]RichText `json:"rich_text"`
-	Children *[]Block    `json:"children"`
-	Checked  bool        `json:"checked,omitempty"`
+	RichText []RichText `json:"rich_text"`
+	Children []Block    `json:"children"`
+	Checked  bool       `json:"checked,omitempty"`
 }
 type BulletedListItemBlock QuoteBlock
 type NumberedListItemBlock QuoteBlock
@@ -81,8 +81,8 @@ type ToggleBlock QuoteBlock
 type TemplateBlock QuoteBlock
 
 type CodeBlock struct {
-	RichText *[]RichText `json:"rich_text"`
-	Language string      `json:"language"`
+	RichText []RichText `json:"rich_text"`
+	Language string     `json:"language"`
 }
 
 type ChildPageBlock struct {
@@ -97,8 +97,8 @@ type EmbedBlock struct {
 
 type LinkPreviewBlock EmbedBlock
 type BookmarkBlock struct {
-	Url     string      `json:"url"`
-	Caption *[]RichText `json:"caption"`
+	Url     string     `json:"url"`
+	Caption []RichText `json:"caption"`
 }
 
 type LinkToPageBlock struct {
