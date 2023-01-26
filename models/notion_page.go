@@ -14,7 +14,7 @@ type Page struct {
 	LastEditedTime *time.Time           `json:"last_edited_time"`
 	Archived       bool                 `json:"archived"`
 	Icon           *Icon                `json:"icon"`
-	Cover          *ExternalFile        `json:"cover"`
+	Cover          *Icon                `json:"cover"`
 	Properties     map[string]*Property `json:"properties,omitempty"`
 	Parent         *PageParent          `json:"parent"`
 	Url            string               `json:"url"`

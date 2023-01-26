@@ -16,8 +16,9 @@ type SelectProperty struct {
 type MultiSelectProperty SelectProperty
 
 type DateProperty struct {
-	Start time.Time  `json:"start"`
-	End   *time.Time `json:"end,omitempty"`
+	Start    time.Time  `json:"start"`
+	End      *time.Time `json:"end,omitempty"`
+	TimeZone string     `json:"time_zone,omitempty"`
 }
 
 type FormulaProperty struct {
