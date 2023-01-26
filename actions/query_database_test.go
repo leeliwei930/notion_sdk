@@ -2,6 +2,7 @@ package actions_test
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"net/http"
 	"testing"
@@ -68,4 +69,55 @@ func TestQueryDatabaseWithFilter(t *testing.T) {
 		fmt.Println(unmarshalErr)
 	}
 	assert.Equal(t, mockQueryResultCursor, *queryResult)
+}
+
+func TestDatabaseQueryFailure(t *testing.T) {
+
+	databaseUUID, _ := uuid.NewRandom()
+	httpmock.ActivateNonDefault(client.Notion().GetHttpBaseClient())
+	defer httpmock.DeactivateAndReset()
+	mockQueryDatabaseErrorResponse := httpmock.File("tests/response_sample/error_response.json")
+	httpmock.RegisterResponder("POST", fmt.Sprintf("https://api.notion.com/v1/databases/%s/query", databaseUUID.String()), func(req *http.Request) (*http.Response, error) {
+		var parsedReqBody actions.QueryDatabaseRequest
+		json.NewDecoder(req.Body).Decode(&parsedReqBody)
+		assert.Equal(t, actions.QueryDatabaseRequest{
+			Filter: &filter.QueryProps{
+				Property: "Title",
+				RichText: &filter.Text{
+					Equals: "Title A",
+				},
+				And: []filter.QueryProps{
+					{
+						Property: "Page",
+						Number: &filter.Number{
+							Gt: 10,
+						},
+					},
+				},
+			},
+		}, parsedReqBody)
+		return httpmock.NewJsonResponse(400, mockQueryDatabaseErrorResponse)
+
+	})
+
+	queryResult, err := actions.QueryDatabase(databaseUUID, []actions.QueryDatabaseOptions{
+		actions.FilterWith(
+			&filter.QueryProps{
+				Property: "Title",
+				RichText: &filter.Text{
+					Equals: "Title A",
+				},
+				And: []filter.QueryProps{
+					{
+						Property: "Page",
+						Number: &filter.Number{
+							Gt: 10,
+						},
+					},
+				},
+			},
+		),
+	}...)
+	assert.Nil(t, queryResult)
+	assert.EqualError(t, err, errors.New("Unavailable").Error())
 }
