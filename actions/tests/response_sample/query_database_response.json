@@ -33,20 +33,18 @@
         "Store availability": {
           "id": "%3AUPp",
           "type": "multi_select",
-          "multi_select": {
-            "options": [
-              {
-                "id": "t|O@",
-                "name": "Gus's Community Market",
-                "color": "yellow"
-              },
-              {
-                "id": "{Ml\\",
-                "name": "Rainbow Grocery",
-                "color": "gray"
-              }
-            ]
-          }
+          "multi_select": [
+            {
+              "id": "t|O@",
+              "name": "Gus's Community Market",
+              "color": "yellow"
+            },
+            {
+              "id": "{Ml\\",
+              "name": "Rainbow Grocery",
+              "color": "gray"
+            }
+          ]
         },
         "Food group": {
           "id": "A%40Hk",

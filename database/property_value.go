@@ -3,7 +3,6 @@ package database
 import (
 	"time"
 
-	"github.com/google/uuid"
 	"github.com/leeliwei930/notion_sdk/enums"
 	"github.com/leeliwei930/notion_sdk/models"
 )
@@ -35,13 +34,23 @@ type PropertyValue struct {
 }
 
 type SelectPropertyValue struct {
-	ID    *uuid.UUID `json:"id,omitempty"`
-	Name  string     `json:"name,omitempty"`
-	Color string     `json:"color,omitempty"`
+	ID    string `json:"id,omitempty"`
+	Name  string `json:"name,omitempty"`
+	Color string `json:"color,omitempty"`
 }
 type RelationPropertyValue struct {
-	ID *uuid.UUID `json:"id,omitempty"`
+	ID string `json:"id,omitempty"`
 }
 
 type RollUpPropertyValue struct {
+	Type    enums.RollUpPropertyValueType `json:"type,omitempty"`
+	String  string                        `json:"string,omitempty"`
+	Number  float64                       `json:"number,omitempty"`
+	Date    *models.DateProperty          `json:"date,omitempty"`
+	Results []RollUpPropertyValueResults  `json:"results,omitempty"`
+}
+type RollUpPropertyValueResults struct {
+	String string               `json:"string,omitempty"`
+	Number float64              `json:"number,omitempty"`
+	Date   *models.DateProperty `json:"date,omitempty"`
 }
