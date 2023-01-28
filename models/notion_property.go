@@ -31,7 +31,7 @@ type FormulaProperty struct {
 }
 
 type RelationProperty struct {
-	ID *uuid.UUID `json:"id"`
+	ID *uuid.UUID `json:"id,omitempty"`
 }
 
 type RollUpProperty struct {
