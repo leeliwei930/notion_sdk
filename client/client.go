@@ -17,6 +17,7 @@ func setupClient() *resty.Client {
 
 	return resty.
 		New().
+		SetTransport(http.DefaultTransport).
 		SetBaseURL("https://api.notion.com/v1/").
 		SetHeader("Content-Type", "application/json").
 		SetError(notionError)
@@ -27,10 +28,6 @@ type NotionClient struct {
 	config       *config.NotionConfig
 	restyRequest *resty.Request
 	restyClient  *resty.Client
-}
-
-func (client *NotionClient) GetHttpBaseClient() *http.Client {
-	return client.restyClient.GetClient()
 }
 
 func loadNotionClient() *NotionClient {

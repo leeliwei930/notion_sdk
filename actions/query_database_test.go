@@ -10,14 +10,13 @@ import (
 	"github.com/google/uuid"
 	"github.com/jarcoal/httpmock"
 	"github.com/leeliwei930/notion_sdk/actions"
-	"github.com/leeliwei930/notion_sdk/client"
 	"github.com/leeliwei930/notion_sdk/database/filter"
 	"github.com/stretchr/testify/assert"
 )
 
 func TestQueryDatabaseWithFilter(t *testing.T) {
 	databaseUUID, _ := uuid.NewRandom()
-	httpmock.ActivateNonDefault(client.Notion().GetHttpBaseClient())
+	httpmock.Activate()
 	defer httpmock.DeactivateAndReset()
 	mockQueryDatabaseResponse := httpmock.File("tests/response_sample/query_database_response.json")
 	httpmock.RegisterResponder("POST", fmt.Sprintf("https://api.notion.com/v1/databases/%s/query", databaseUUID.String()), func(req *http.Request) (*http.Response, error) {
@@ -74,7 +73,7 @@ func TestQueryDatabaseWithFilter(t *testing.T) {
 func TestDatabaseQueryFailure(t *testing.T) {
 
 	databaseUUID, _ := uuid.NewRandom()
-	httpmock.ActivateNonDefault(client.Notion().GetHttpBaseClient())
+	httpmock.Activate()
 	defer httpmock.DeactivateAndReset()
 	mockQueryDatabaseErrorResponse := httpmock.File("tests/response_sample/error_response.json")
 	httpmock.RegisterResponder("POST", fmt.Sprintf("https://api.notion.com/v1/databases/%s/query", databaseUUID.String()), func(req *http.Request) (*http.Response, error) {

@@ -9,14 +9,13 @@ import (
 	"github.com/google/uuid"
 	"github.com/jarcoal/httpmock"
 	"github.com/leeliwei930/notion_sdk/actions"
-	"github.com/leeliwei930/notion_sdk/client"
 	"github.com/leeliwei930/notion_sdk/enums"
 	"github.com/leeliwei930/notion_sdk/models"
 	"github.com/stretchr/testify/assert"
 )
 
 func TestCreatePageSuccess(t *testing.T) {
-	httpmock.ActivateNonDefault(client.Notion().GetHttpBaseClient())
+	httpmock.Activate()
 	mockResponseFile := httpmock.File("tests/response_sample/create_page_response.json")
 	var testUUID uuid.UUID
 	testUUID, _ = uuid.NewRandom()
@@ -119,7 +118,7 @@ func TestCreatePageSuccess(t *testing.T) {
 }
 
 func TestCreatePageFailure(t *testing.T) {
-	httpmock.ActivateNonDefault(client.Notion().GetHttpBaseClient())
+	httpmock.Activate()
 	mockErrResponseFile := httpmock.File("tests/response_sample/error_response.json")
 
 	jsonResponder, _ := httpmock.NewJsonResponder(400, mockErrResponseFile)

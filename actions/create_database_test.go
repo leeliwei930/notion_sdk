@@ -29,7 +29,7 @@ func TestMain(m *testing.M) {
 func TestCreateDatabaseSuccess(t *testing.T) {
 	var parentPageID uuid.UUID
 	parentPageID, _ = uuid.NewRandom()
-	httpmock.ActivateNonDefault(client.Notion().GetHttpBaseClient())
+	httpmock.Activate()
 	mockCreatedDatabaseResponse := httpmock.File("tests/response_sample/create_database_response.json")
 	defer httpmock.DeactivateAndReset()
 
@@ -137,7 +137,7 @@ func TestCreateDatabaseSuccess(t *testing.T) {
 
 func TestCreateDatabaseFail(t *testing.T) {
 
-	httpmock.ActivateNonDefault(client.Notion().GetHttpBaseClient())
+	httpmock.Activate()
 	mockErrorResponse := httpmock.File("tests/response_sample/error_response.json")
 	jsonResponder, _ := httpmock.NewJsonResponder(400, mockErrorResponse)
 	httpmock.RegisterResponder("POST", "https://api.notion.com/v1/databases", jsonResponder)
