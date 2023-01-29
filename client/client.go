@@ -9,22 +9,17 @@ import (
 	"github.com/leeliwei930/notion_sdk/models"
 )
 
-var restyClient *resty.Client
 var notionClient *NotionClient
 var notionConfig *config.NotionConfig
 
 func setupClient() *resty.Client {
 	notionError := &models.NotionError{}
-	if restyClient != nil {
-		return restyClient
-	}
-	restyClient = resty.
+
+	return resty.
 		New().
 		SetBaseURL("https://api.notion.com/v1/").
 		SetHeader("Content-Type", "application/json").
 		SetError(notionError)
-
-	return restyClient
 
 }
 
@@ -42,16 +37,14 @@ func loadNotionClient() *NotionClient {
 	if notionConfig == nil {
 		panic(errors.New("Notion config isn't initialize, do you call client.LoadNotionConfig before accessing to Notion client instance?"))
 	}
-
-	if notionClient == nil {
-		notionClient = &NotionClient{
-			config:       notionConfig,
-			restyClient:  restyClient,
-			restyRequest: restyClient.R(),
-		}
-		notionClient.restyRequest.SetHeader("Notion-Version", notionClient.config.NotionVersion)
-		notionClient.restyRequest.SetAuthToken(notionClient.config.AccessToken)
+	restyClient := setupClient()
+	notionClient = &NotionClient{
+		config:       notionConfig,
+		restyClient:  restyClient,
+		restyRequest: restyClient.R(),
 	}
+	notionClient.restyRequest.SetHeader("Notion-Version", notionClient.config.NotionVersion)
+	notionClient.restyRequest.SetAuthToken(notionClient.config.AccessToken)
 	return notionClient
 }
 
@@ -64,7 +57,6 @@ func InitializeNotionConfig(config *config.NotionConfig) {
 }
 
 func Notion() *NotionClient {
-	restyClient = setupClient()
 	notionClient = loadNotionClient()
 	return notionClient
 }
