@@ -9,7 +9,6 @@ import (
 	"github.com/leeliwei930/notion_sdk/models"
 )
 
-var notionClient *NotionClient
 var notionConfig *config.NotionConfig
 
 func setupClient() *resty.Client {
@@ -30,12 +29,12 @@ type NotionClient struct {
 	restyClient  *resty.Client
 }
 
-func loadNotionClient() *NotionClient {
+func Notion() *NotionClient {
 	if notionConfig == nil {
 		panic(errors.New("Notion config isn't initialize, do you call client.LoadNotionConfig before accessing to Notion client instance?"))
 	}
 	restyClient := setupClient()
-	notionClient = &NotionClient{
+	notionClient := &NotionClient{
 		config:       notionConfig,
 		restyClient:  restyClient,
 		restyRequest: restyClient.R(),
@@ -51,9 +50,4 @@ func (client *NotionClient) Request() *resty.Request {
 
 func InitializeNotionConfig(config *config.NotionConfig) {
 	notionConfig = config
-}
-
-func Notion() *NotionClient {
-	notionClient = loadNotionClient()
-	return notionClient
 }
