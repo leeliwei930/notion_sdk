@@ -7,11 +7,11 @@ import (
 
 type User struct {
 	Object    string          `json:"object"`
-	ID        uuid.UUID       `json:"id"`
-	Type      *enums.UserType `json:"type,omitempty"`
 	AvatarUrl string          `json:"avatar_url,omitempty"`
+	Type      *enums.UserType `json:"type,omitempty"`
 	Person    *Person         `json:"person,omitempty"`
 	Bot       *Bot            `json:"bot,omitempty"`
+	ID        uuid.UUID       `json:"id"`
 }
 
 type Person struct {
@@ -23,7 +23,7 @@ type Bot struct {
 }
 
 type BotOwner struct {
+	User      User               `json:"user"`
 	Type      enums.BotOwnerType `json:"type"`
 	Workspace bool               `json:"workspace"`
-	User      User               `json:"user"`
 }

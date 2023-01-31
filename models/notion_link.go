@@ -7,6 +7,6 @@ type Link struct {
 }
 
 type Mention struct {
-	Type enums.MentionType `json:"type"`
 	User *User             `json:"user,omitempty"`
+	Type enums.MentionType `json:"type"`
 }

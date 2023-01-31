@@ -10,25 +10,25 @@ import (
 type Block struct {
 	Object           string                 `json:"object,omitempty"`
 	ID               string                 `json:"id,omitempty"`
-	Type             enums.BlockType        `json:"type,omitempty"`
-	CreatedTime      *time.Time             `json:"created_time,omitempty"`
+	ChildPage        *ChildPageBlock        `json:"child_page,omitempty"`
+	Heading2         *Heading2Block         `json:"heading_2,omitempty"`
 	LastEditedTime   *time.Time             `json:"last_edited_time,omitempty"`
-	Archived         bool                   `json:"archived,omitempty"`
-	HasChildren      bool                   `json:"has_children,omitempty"`
+	SyncedBlock      *SyncedBlockBlocks     `json:"synced_block,omitempty"`
+	LinkToPage       *LinkToPageBlock       `json:"link_to_page,omitempty"`
 	Paragraph        *ParagraphBlock        `json:"paragraph,omitempty"`
 	Heading1         *Heading1Block         `json:"heading_1,omitempty"`
-	Heading2         *Heading2Block         `json:"heading_2,omitempty"`
+	ChildDatabase    *ChildDatabaseBlock    `json:"child_database,omitempty"`
 	Heading3         *Heading3Block         `json:"heading_3,omitempty"`
-	Callout          *CalloutBlock          `json:"callout,omitempty"`
+	Embed            *EmbedBlock            `json:"embed,omitempty"`
 	Quote            *QuoteBlock            `json:"quote,omitempty"`
 	BulletedListItem *BulletedListItemBlock `json:"bulleted_list_item,omitempty"`
 	NumberedListItem *NumberedListItemBlock `json:"numbered_list_item,omitempty"`
 	ToDo             *ToDoBlock             `json:"to_do,omitempty"`
 	Toggle           *ToggleBlock           `json:"toggle,omitempty"`
 	Code             *CodeBlock             `json:"code,omitempty"`
-	ChildPage        *ChildPageBlock        `json:"child_page,omitempty"`
-	ChildDatabase    *ChildDatabaseBlock    `json:"child_database,omitempty"`
-	Embed            *EmbedBlock            `json:"embed,omitempty"`
+	Template         *TemplateBlock         `json:"template,omitempty"`
+	CreatedTime      *time.Time             `json:"created_time,omitempty"`
+	Callout          *CalloutBlock          `json:"callout,omitempty"`
 	Image            *File                  `json:"image,omitempty"`
 	Video            *File                  `json:"video,omitempty"`
 	File             *File                  `json:"file,omitempty"`
@@ -41,9 +41,9 @@ type Block struct {
 	ColumnList       map[string]string      `json:"column_list,omitempty"`
 	Column           map[string]string      `json:"column,omitempty"`
 	LinkPreview      *LinkPreviewBlock      `json:"link_preview,omitempty"`
-	Template         *TemplateBlock         `json:"template,omitempty"`
-	LinkToPage       *LinkToPageBlock       `json:"link_to_page,omitempty"`
-	SyncedBlock      *SyncedBlockBlocks     `json:"synced_block,omitempty"`
+	HasChildren      bool                   `json:"has_children,omitempty"`
+	Type             enums.BlockType        `json:"type,omitempty"`
+	Archived         bool                   `json:"archived,omitempty"`
 }
 
 type ParagraphBlock struct {
@@ -97,8 +97,8 @@ type EmbedBlock struct {
 
 type LinkPreviewBlock EmbedBlock
 type BookmarkBlock struct {
-	Url     string     `json:"url"`
 	Caption []RichText `json:"caption"`
+	Url     string     `json:"url"`
 }
 
 type LinkToPageBlock struct {

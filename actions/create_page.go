@@ -9,9 +9,9 @@ import (
 
 type CreatePageOptions func(body *CreatePageOptionsBody)
 type CreatePageOptionsBody struct {
+	Children   []models.Block             `json:"children,omitempty"`
 	Parent     *models.PageParent         `json:"parent"`
 	Properties map[string]models.Property `json:"properties"`
-	Children   []models.Block             `json:"children,omitempty"`
 	Icon       *models.Icon               `json:"icon,omitempty"`
 	Cover      *models.File               `json:"cover,omitempty"`
 }

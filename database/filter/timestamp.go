@@ -42,7 +42,7 @@ func (d *TimestampType) UnmarshalJSON(input []byte) error {
 }
 
 type Timestamp struct {
-	Types          TimestampType `json:"timestamp,omitempty"`
 	CreatedTime    *Date         `json:"created_time,omitempty"`
 	LastEditedTime *Date         `json:"last_edited_time,omitempty"`
+	Types          TimestampType `json:"timestamp,omitempty"`
 }

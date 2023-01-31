@@ -8,26 +8,26 @@ import (
 )
 
 type SelectProperty struct {
-	ID    *uuid.UUID  `json:"id,omitempty"`
 	Name  string      `json:"name,omitempty"`
+	ID    *uuid.UUID  `json:"id,omitempty"`
 	Color enums.Color `json:"color"`
 }
 
 type MultiSelectProperty SelectProperty
 
 type DateProperty struct {
+	TimeZone string    `json:"time_zone,omitempty"`
 	Start    *DateTime `json:"start"`
 	End      *DateTime `json:"end,omitempty"`
-	TimeZone string    `json:"time_zone,omitempty"`
 }
 
 type FormulaProperty struct {
-	Type     enums.FormulaPropertyValueType `json:"type"`
 	String   string                         `json:"string,omitempty"`
 	Number   *float64                       `json:"number,omitempty"`
-	Boolean  bool                           `json:"boolean,omitempty"`
 	Date     *DateProperty                  `json:"date,omitempty"`
 	Relation *RelationProperty              `json:"relation,omitempty"`
+	Type     enums.FormulaPropertyValueType `json:"type"`
+	Boolean  bool                           `json:"boolean,omitempty"`
 }
 
 type RelationProperty struct {
@@ -40,24 +40,24 @@ type RollUpProperty struct {
 }
 
 type RollUpArrayProperty struct {
-	Type           enums.PropertyType `json:"type"`
-	Title          []RichText         `json:"title,omitempty"`
-	RichText       []RichText         `json:"rich_text,omitempty"`
-	Number         *float64           `json:"number,omitempty"`
-	Select         *SelectProperty    `json:"select,omitempty"`
-	MultiSelect    []SelectProperty   `json:"multi_select,omitempty"`
-	Date           *DateProperty      `json:"date,omitempty"`
-	Formula        *FormulaProperty   `json:"formula,omitempty"`
-	Relation       *RelationProperty  `json:"relation,omitempty"`
-	RollUp         *RollUpProperty    `json:"rollup,omitempty"`
 	People         []User             `json:"people,omitempty"`
+	MultiSelect    []SelectProperty   `json:"multi_select,omitempty"`
+	RichText       []RichText         `json:"rich_text,omitempty"`
 	Files          []File             `json:"files,omitempty"`
-	Checkbox       bool               `json:"checkbox,omitempty"`
+	Title          []RichText         `json:"title,omitempty"`
+	CreatedBy      *User              `json:"created_by,omitempty"`
+	PhoneNumber    *string            `json:"phone_number,omitempty"`
+	Relation       *RelationProperty  `json:"relation,omitempty"`
+	LastEditedBy   *User              `json:"last_edited_by,omitempty"`
+	Select         *SelectProperty    `json:"select,omitempty"`
+	Formula        *FormulaProperty   `json:"formula,omitempty"`
+	Number         *float64           `json:"number,omitempty"`
+	LastEditedTime *time.Time         `json:"last_edited_time,omitempty"`
 	Url            *string            `json:"url,omitempty"`
 	Email          *string            `json:"email,omitempty"`
-	PhoneNumber    *string            `json:"phone_number,omitempty"`
+	Date           *DateProperty      `json:"date,omitempty"`
 	CreatedTime    *time.Time         `json:"created_time,omitempty"`
-	CreatedBy      *User              `json:"created_by,omitempty"`
-	LastEditedTime *time.Time         `json:"last_edited_time,omitempty"`
-	LastEditedBy   *User              `json:"last_edited_by,omitempty"`
+	RollUp         *RollUpProperty    `json:"rollup,omitempty"`
+	Checkbox       bool               `json:"checkbox,omitempty"`
+	Type           enums.PropertyType `json:"type"`
 }

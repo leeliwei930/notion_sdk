@@ -10,9 +10,9 @@ import (
 
 type CreateDatabaseOptions func(body *CreateDatabaseBody)
 type CreateDatabaseBody struct {
+	Title      []models.RichText                     `json:"title,omitempty"`
 	Parent     *models.PageParent                    `json:"parent,omitempty"`
 	Icon       *models.Icon                          `json:"icon,omitempty"`
-	Title      []models.RichText                     `json:"title,omitempty"`
 	Cover      *models.File                          `json:"cover,omitempty"`
 	Properties map[string]*database.DatabaseProperty `json:"properties,omitempty"`
 }

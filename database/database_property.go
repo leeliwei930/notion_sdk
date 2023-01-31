@@ -7,9 +7,8 @@ import (
 
 type DatabaseProperty struct {
 	ID          string                     `json:"id,omitempty"`
-	Type        enums.DatabasePropertyType `json:"type,omitempty"`
-	Title       *EmptyProperty             `json:"title,omitempty"`
 	Name        string                     `json:"name,omitempty"`
+	Title       *EmptyProperty             `json:"title,omitempty"`
 	RichText    *models.RichText           `json:"rich_text,omitempty"`
 	Number      *NumberProperty            `json:"number,omitempty"`
 	Select      *SelectProperty            `json:"select,omitempty"`
@@ -18,4 +17,5 @@ type DatabaseProperty struct {
 	Formula     *FormulaProperty           `json:"formula,omitempty"`
 	Relation    *RelationProperty          `json:"relation,omitempty"`
 	RollUp      *RollUpProperty            `json:"rollup,omitempty"`
+	Type        enums.DatabasePropertyType `json:"type,omitempty"`
 }

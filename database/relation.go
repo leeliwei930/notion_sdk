@@ -7,8 +7,8 @@ import (
 
 type RelationProperty struct {
 	DatabaseID   *uuid.UUID                         `json:"database_id,omitempty"`
-	Type         enums.RelationDatabasePropertyType `json:"type,omitempty"`
 	DualProperty *DualPropertyRelationConfiguration `json:"dual_property,omitempty"`
+	Type         enums.RelationDatabasePropertyType `json:"type,omitempty"`
 }
 
 type DualPropertyRelationConfiguration struct {
