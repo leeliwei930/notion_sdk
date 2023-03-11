@@ -28,7 +28,7 @@ func TestQueryDatabaseWithFilter(t *testing.T) {
 				RichText: &filter.Text{
 					Equals: "Title A",
 				},
-				And: []filter.QueryProps{
+				And: []*filter.QueryProps{
 					{
 						Property: "Page",
 						Number: &filter.Number{
@@ -49,7 +49,7 @@ func TestQueryDatabaseWithFilter(t *testing.T) {
 				RichText: &filter.Text{
 					Equals: "Title A",
 				},
-				And: []filter.QueryProps{
+				And: []*filter.QueryProps{
 					{
 						Property: "Page",
 						Number: &filter.Number{
@@ -85,7 +85,7 @@ func TestDatabaseQueryFailure(t *testing.T) {
 				RichText: &filter.Text{
 					Equals: "Title A",
 				},
-				And: []filter.QueryProps{
+				And: []*filter.QueryProps{
 					{
 						Property: "Page",
 						Number: &filter.Number{
@@ -106,7 +106,7 @@ func TestDatabaseQueryFailure(t *testing.T) {
 				RichText: &filter.Text{
 					Equals: "Title A",
 				},
-				And: []filter.QueryProps{
+				And: []*filter.QueryProps{
 					{
 						Property: "Page",
 						Number: &filter.Number{
