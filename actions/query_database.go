@@ -39,9 +39,13 @@ func QueryDatabase(databaseId uuid.UUID, options ...QueryDatabaseOptions) (*filt
 		return nil, err
 	}
 	if response.IsError() {
-		respErr := response.Error().(*models.NotionError)
-		err = errors.New(respErr.Message)
-		return nil, err
+		respErr, ok := response.Error().(*models.NotionError)
+		if !ok {
+			err = errors.New("unable to parse response error to NotionError")
+			return nil, err
+		}
+
+		return nil, respErr
 	}
 	return cursorResults, nil
 
