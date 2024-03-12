@@ -41,6 +41,7 @@ func Notion() *NotionClient {
 	}
 	notionClient.restyRequest.SetHeader("Notion-Version", notionClient.config.NotionVersion)
 	notionClient.restyRequest.SetAuthToken(notionClient.config.AccessToken)
+	notionClient.restyClient.SetTimeout(notionClient.config.TimeoutDuration)
 	return notionClient
 }
 
