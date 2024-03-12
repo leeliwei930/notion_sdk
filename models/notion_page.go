@@ -8,16 +8,16 @@ import (
 )
 
 type Page struct {
-	Object         string                    `json:"object"`
-	Url            string                    `json:"url"`
-	ID             *uuid.UUID                `json:"id,omitempty"`
-	CreatedTime    *time.Time                `json:"created_time"`
-	LastEditedTime *time.Time                `json:"last_edited_time"`
-	Icon           *Icon                     `json:"icon"`
-	Cover          *Icon                     `json:"cover"`
-	Properties     map[string]*PropertyValue `json:"properties,omitempty"`
-	Parent         *PageParent               `json:"parent"`
-	Archived       bool                      `json:"archived"`
+	Object         string         `json:"object"`
+	Url            string         `json:"url"`
+	ID             *uuid.UUID     `json:"id,omitempty"`
+	CreatedTime    *time.Time     `json:"created_time"`
+	LastEditedTime *time.Time     `json:"last_edited_time"`
+	Icon           *Icon          `json:"icon"`
+	Cover          *Icon          `json:"cover"`
+	Properties     PageProperties `json:"properties,omitempty"`
+	Parent         *PageParent    `json:"parent"`
+	Archived       bool           `json:"archived"`
 }
 
 type PageParent struct {
