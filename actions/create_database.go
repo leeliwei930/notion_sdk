@@ -35,7 +35,10 @@ func CreateDatabase(options ...CreateDatabaseOptions) (*database.Database, error
 	}
 
 	if response.IsError() {
-		respErr := response.Error().(*models.NotionError)
+		respErr, ok := response.Error().(*models.NotionError)
+		if !ok {
+			return nil, InvalidErrorResponse
+		}
 		err = errors.New(respErr.Message)
 		return nil, err
 	}

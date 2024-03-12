@@ -29,8 +29,10 @@ func RetrievePage(pageId uuid.UUID, filterProperties ...string) (*models.Page, e
 		return nil, err
 	}
 	if response.IsError() {
-		respErr := response.Error().(*models.NotionError)
-
+		respErr, ok := response.Error().(*models.NotionError)
+		if !ok {
+			return nil, InvalidErrorResponse
+		}
 		err = errors.New(respErr.Message)
 		return nil, err
 	}

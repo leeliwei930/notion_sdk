@@ -1,7 +1,6 @@
 package actions
 
 import (
-	"errors"
 	"fmt"
 
 	"github.com/google/uuid"
@@ -41,8 +40,7 @@ func QueryDatabase(databaseId uuid.UUID, options ...QueryDatabaseOptions) (*filt
 	if response.IsError() {
 		respErr, ok := response.Error().(*models.NotionError)
 		if !ok {
-			err = errors.New("unable to parse response error to NotionError")
-			return nil, err
+			return nil, InvalidErrorResponse
 		}
 
 		return nil, respErr

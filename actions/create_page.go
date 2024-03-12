@@ -33,8 +33,10 @@ func CreatePage(options ...CreatePageOptions) (*models.Page, error) {
 		return nil, err
 	}
 	if response.IsError() {
-		respErr := response.Error().(*models.NotionError)
-
+		respErr, ok := response.Error().(*models.NotionError)
+		if !ok {
+			return nil, InvalidErrorResponse
+		}
 		err = errors.New(respErr.Message)
 		return nil, err
 	}
